@@ -5,33 +5,33 @@
 
 
 import dash
-  from dash import dcc
-  from dash import html, ctx
-  from dash.dependencies import Input, Output
-  import pandas as pd
-  import plotly.graph_objs as go
-  import plotly.express as px
+from dash import dcc
+from dash import html, ctx
+from dash.dependencies import Input, Output
+import pandas as pd
+import plotly.graph_objs as go
+import plotly.express as px
 
 
-  # Load the data using pandas
-  data = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0101EN-SkillsNetwork/Data%20Files/historical_automobile_sales.csv')
+# Load the data using pandas
+data = pd.read_csv('https://cf-courses-data.s3.us.cloud-object-storage.appdomain.cloud/IBMDeveloperSkillsNetwork-DV0101EN-SkillsNetwork/Data%20Files/historical_automobile_sales.csv')
 
-  # Initialize the Dash app
-  app = dash.Dash(__name__)
+# Initialize the Dash app
+app = dash.Dash(__name__)
 
-  # Set the title of the dashboard
-  app.title = "Automobile Statistics Dashboard"
+# Set the title of the dashboard
+app.title = "Automobile Statistics Dashboard"
 
-  # Create the dropdown menu options
-  dropdown_options = [
+# Create the dropdown menu options
+dropdown_options = [
       {'label': 'Yearly Statistics', 'value': 'Yearly Statistics'},
       {'label': 'Recession Period Statistics', 'value': 'Recession Period Statistics'}
   ]
-  # List of years
-  year_list = [i for i in range(1980, 2024, 1)]
+ # List of years
+year_list = [i for i in range(1980, 2024, 1)]
 
-  # Create the layout of the app
-  app.layout = html.Div([
+# Create the layout of the app
+app.layout = html.Div([
       html.H1("Automobile Statistics Dashboard"),
       html.Div([
           html.Label("Select Statistics:"),
@@ -56,28 +56,28 @@ import dash
       ])
   ])
 
-  @app.callback(
+@app.callback(
       Output(component_id='select-year', component_property='disabled'),
       Input(component_id='dropdown-statistics', component_property='value'))
 
 
-  def update_input_container(selected_statistics):
-      if selected_statistics =='Yearly Statistics':
+def update_input_container(selected_statistics):
+    if selected_statistics =='Yearly Statistics':
           return False
       else:
           return True
 
 
-  # Define the callback function to update the input container based on the selected statistics
-  @app.callback(
+# Define the callback function to update the input container based on the selected statistics
+@app.callback(
 
       Output(component_id='output-container', component_property='children'),
 
       [Input(component_id='dropdown-statistics', component_property='value'),
       Input(component_id='select-year', component_property='value') ])
 
-  def update_output_container(selected_statistics, input_year):
-      if selected_statistics == 'Recession Period Statistics':
+def update_output_container(selected_statistics, input_year):
+    if selected_statistics == 'Recession Period Statistics':
           # Filter the data for recession periods
           recession_data = data[data['Recession'] == 1]
 
