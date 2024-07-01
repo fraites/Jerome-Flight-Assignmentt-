@@ -37,14 +37,18 @@ import dash
           html.Label("Select Statistics:"),
           dcc.Dropdown(
               id='dropdown-statistics',
-              options=dropdown_options,
+              options=[
+             {'label': 'Yearly Statistics', 'value': 'Yearly Statistics'},
+              {'label': 'Recession Period Statistics', 'value' : 'Recession Period Statistics'} 
+         ],
               value='Select Statistics'
           )
       ]),
       html.Div(dcc.Dropdown(
               id='select-year',
               options=[{'label': i, 'value': i} for i in year_list],
-              value='Select-year'
+              value='Select-year',
+              placeholder='Select Year'
           )),
       
       html.Div([
@@ -53,8 +57,8 @@ import dash
   ])
 
   @app.callback(
-      Output('select-year', 'disabled'),
-      Input('dropdown-statistics','value'))
+      Output(component_id='select-year', component_property='disabled'),
+      Input(component_id='dropdown-statistics', component_property='value'))
 
 
   def update_input_container(selected_statistics):
