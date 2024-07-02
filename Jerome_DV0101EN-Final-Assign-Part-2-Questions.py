@@ -121,8 +121,8 @@ def update_output_container(selected_statistics, input_year):
               html.Div(className='chart-item', children=[html.Div(children=R_chart1),html.Div(children=R_chart2)],style={'display': 'flex'}),
               html.Div(className='chart-item', children=[html.Div(children=R_chart3),html.Div(children=R_chart4)],style={'display': 'flex'})
               ]
-      elif (input_year and selected_statistics=='Yearly Statistics') :
-                yearly_data = data[data['Year'] == input_year]
+elif (input_year and selected_statistics=='Yearly Statistics') :
+          yearly_data = data[data['Year'] == input_year]
 
               #Yearly Automobile sales using line chart for the whole period.
           yas= data.groupby('Year')['Automobile_Sales'].mean().reset_index()
